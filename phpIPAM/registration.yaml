@@ -1,0 +1,11 @@
+---
+name: "phpIPAM"
+description: "phpIPAM integration for vRealize Automation"
+version: "0.1"
+
+abxConfig:
+  allocateIPActionId: "phpIPAM_AllocateIP"
+  deallocateIPActionId: "phpIPAM_DeallocateIP"
+  validateEndpointActionId: "phpIPAM_ValidateEndpoint"
+  updateResourceActionId: "phpIPAM_Update"
+  getIPRangesActionId: "phpIPAM_GetIPRanges"

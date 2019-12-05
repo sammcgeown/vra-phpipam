@@ -1,0 +1,19 @@
+---
+exportVersion: "1"
+exportId: "phpIPAM_AllocateIP"
+name: "phpIPAM_AllocateIP"
+runtime: "python"
+entrypoint: "handler"
+inputs:
+  target: "World"
+timeoutSeconds: 600
+deploymentTimeoutSeconds: 600
+dependencies: "requests==2.21.0\nndg-httpsclient\npyopenssl\npyasn1\nidna\nphpipam-client"
+actionType: "SCRIPT"
+configuration:
+  const-providers:
+  - ""
+  const_azure-system_managed_identity: false
+actionTemplateName: "Custom script"
+actionTemplateNamespace: "com.vmware.automation.abx"
+memoryInMB: 600
