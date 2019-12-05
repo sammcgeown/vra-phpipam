@@ -27,11 +27,11 @@ def handler(context, inputs):
         # cert = get_cert(inputs)
         from phpipam_client import PhpIpamClient, GET, PATCH
 
-        logging.info(get_properties(inputs).get("appId", False))
+        #logging.info(get_properties(inputs).get("appId", False))
 
         ipam = PhpIpamClient(
             url=inputs["endpointProperties"]["hostName"],
-            app_id= get_properties(inputs).get("appId", False),
+            app_id= "vra",
             username=username,
             password=password,
             user_agent='vra-ipam', # custom user-agent header
@@ -70,8 +70,9 @@ def get_auth_credentials(context, inputs):
     auth_credentials_response = context.request(auth_credentials_link, 'GET', '')
     if auth_credentials_response["status"] == 200:
         logging.info("Credentials obtained successfully!")
-        logging.info(auth_credentials_response["content"])
-        return json.loads(auth_credentials_response["content"])
+        data = auth_credentials_response["content"].decode('utf-8')
+        jsonData = json.loads(data)
+        return jsonData
 
     raise Exception('Failed to obtain auth credentials from {}: {}'.format(auth_credentials_link, str(auth_credentials_response)))
 

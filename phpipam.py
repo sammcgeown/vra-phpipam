@@ -1,4 +1,10 @@
+import json
+import tempfile
+import os
+import logging
+import phpipam_client
 from phpipam_client import PhpIpamClient, GET, PATCH
+
 
 ipam = PhpIpamClient(
     url='http://phpipam.definit.local',

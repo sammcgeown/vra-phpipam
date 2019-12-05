@@ -38,7 +38,8 @@
          "label":"Username",
          "constraints":{  
             "required":true
-         }
+         },
+         "default": "admin"
       },
       "privateKey":{  
          "label":"Password",
@@ -47,7 +48,8 @@
          },
          "constraints":{  
             "required":true
-         }
+         },
+         "default": "b77iofI!#wVhe/IeG^yDO~MVO$w^T1aYeD2"
       },
       "hostName":{  
          "type":{  
@@ -56,7 +58,8 @@
          "label":"Hostname",
          "constraints":{  
             "required":true
-         }
+         },
+         "default": "http://phpipam.definit.local"
       },
       "appId":{  
          "type":{  
@@ -65,7 +68,8 @@
          "label":"App ID",
          "constraints":{  
             "required":true
-         }
+         },
+         "default": "vra"
       }
    },
    "options":{  
