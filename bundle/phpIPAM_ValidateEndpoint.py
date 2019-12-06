@@ -26,9 +26,7 @@ def handler(context, inputs):
         password = auth_credentials["privateKey"]
         # cert = get_cert(inputs)
         from phpipam_client import PhpIpamClient, GET, PATCH
-
         #logging.info(get_properties(inputs).get("appId", False))
-
         ipam = PhpIpamClient(
             url=inputs["endpointProperties"]["hostName"],
             app_id= "vra",
