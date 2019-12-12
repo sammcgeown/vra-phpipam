@@ -36,17 +36,17 @@ def handler(context, inputs):
             user_agent='vra-ipam', # custom user-agent header
         )
 
-        ipDeallocations = []
-        try:
-            for ipDeallocation in inputs["ipDeallocations"]:
-                ipDeallocations.append(deallocateIp(ipDeallocation, ipam))
-        except Exception as e:
-            logging.error(f"Error during deallocation: {str(e)}")
-            return build_error_response("5000", str(e))
-        assert len(ipDeallocations) > 0
-        return {
-            "ipDeallocations": ipDeallocations
-        }
+        # ipDeallocations = []
+        # try:
+        #     for ipDeallocation in inputs["ipDeallocations"]:
+        #         ipDeallocations.append(deallocateIp(ipDeallocation, ipam))
+        # except Exception as e:
+        #     logging.error(f"Error during deallocation: {str(e)}")
+        #     return build_error_response("5000", str(e))
+        # assert len(ipDeallocations) > 0
+        # return {
+        #     "ipDeallocations": ipDeallocations
+        # }
     except Exception as e:
         logging.error(f"Unexpected error: {str(e)}")
         return build_error_response("5000", str(e))

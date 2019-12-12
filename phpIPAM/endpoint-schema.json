@@ -98,6 +98,10 @@
                 {
                     "prop_key": "phpIPAM.sectionName",
                     "prop_value": "lab"
+                },
+                {
+                    "prop_key": "phpIPAM.domain",
+                    "prop_value": "definit.local"
                 }
             ],
             "constraints": {}

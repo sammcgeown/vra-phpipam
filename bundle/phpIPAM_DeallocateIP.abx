@@ -5,7 +5,6 @@ name: "phpIPAM_DeallocateIP"
 runtime: "python"
 entrypoint: "handler"
 inputs:
-  target: "World"
 timeoutSeconds: 600
 deploymentTimeoutSeconds: 600
 dependencies: "requests==2.21.0\nndg-httpsclient\npyopenssl\npyasn1\nidna\nphpipam-client"

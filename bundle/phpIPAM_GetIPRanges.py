@@ -41,31 +41,33 @@ def handler(context, inputs):
         subnets = ipam.get('/sections/'+sectionId+'/subnets')
         ipRanges = []
         for subnet in subnets:
-            subnetPrefixLength = subnet["mask"]
-            cidr = subnet["subnet"]+"/"+subnetPrefixLength
-            network = ipaddress.IPv4Network(cidr)
-            startIpAddress, endIpAddress = str(network[1]), str(network[-2])
-            # Build ipRange Object
-            ipRange = {}
-            ipRange["id"] = subnet["id"]
-            ipRange["name"] = cidr
-            ipRange["description"] = subnet["description"]
-            ipRange["startIPAddress"] = startIpAddress
-            ipRange["endIPAddress"] = endIpAddress
-            ipRange["ipVersion"] = 'IPv4'
-            if "gatewayId" in subnet:
-                gatewayIp = ipam.get("/addresses/"+subnet["gatewayId"]+"/")
-                ipRange["gatewayAddress"] = gatewayIp["ip"]
-            if "nameservers" in subnet:
-                ipRange["dnsServerAddresses"] = subnet["nameservers"]["namesrv1"].split(';')
-            ipRange["subnetPrefixLength"] = subnetPrefixLength
-            #ipRange["addressSpaceId"] = addressSpaceId
-            #ipRange["domain"] = None
-            #ipRange["dnsSearchDomains"] = None
-            #ipRange["properties"] = None
-            #ipRange["tags"] = None
-            #logging.info(subnet["id"], cidr, subnet["description"], startIpAddress, endIpAddress, 'IPv4', addressSpaceId, gatewayAddress, subnetPrefixLength, dnsServerAddresses)
-            ipRanges.append(ipRange)
+            if (subnet["allowRequests"] is "1"):
+                subnetPrefixLength = subnet["mask"]
+                cidr = subnet["subnet"]+"/"+subnetPrefixLength
+                network = ipaddress.IPv4Network(cidr)
+                startIpAddress = ipam.get('/subnets/'+subnet["id"]+'/first_free/')
+                endIpAddress = str(network[-2])
+                # Build ipRange Object
+                ipRange = {}
+                ipRange["id"] = subnet["id"]
+                ipRange["name"] = cidr
+                ipRange["description"] = subnet["description"]
+                ipRange["startIPAddress"] = startIpAddress
+                ipRange["endIPAddress"] = endIpAddress
+                ipRange["ipVersion"] = 'IPv4'
+                if "gatewayId" in subnet:
+                    gatewayIp = ipam.get("/addresses/"+subnet["gatewayId"]+"/")
+                    ipRange["gatewayAddress"] = gatewayIp["ip"]
+                if "nameservers" in subnet:
+                    ipRange["dnsServerAddresses"] = subnet["nameservers"]["namesrv1"].split(';')
+                ipRange["subnetPrefixLength"] = subnetPrefixLength
+                #ipRange["addressSpaceId"] = addressSpaceId
+                ipRange["domain"] = phpIPAMProperties["phpIPAM.domain"]
+                #ipRange["dnsSearchDomains"] = None
+                #ipRange["properties"] = None
+                #ipRange["tags"] = None
+                #logging.info(subnet["id"], cidr, subnet["description"], startIpAddress, endIpAddress, 'IPv4', addressSpaceId, gatewayAddress, subnetPrefixLength, dnsServerAddresses)
+                ipRanges.append(ipRange)
         #logging.info(ipRanges)
         result = {
             "ipRanges": ipRanges
