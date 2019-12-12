@@ -59,8 +59,10 @@ def handler(context, inputs):
 def deallocateIp(ipDeallocation, ipam):
     ipToDeallocate = ipDeallocation["ipAddress"]
     logging.info(f"Removing IP allocation {str(ipToDeallocate)}")
-    ipam.delete('/adresses/'+ipToDeallocate+'/'+ipDeallocation["ipRangeId"])
-    return
+    ipam.delete('/addresses/'+ipToDeallocate+'/'+ipDeallocation["ipRangeId"]+'/')
+    return {
+        "ipDeallocationId": ipDeallocation["id"]
+    }
 
 
 def get_auth_credentials(context, inputs):
