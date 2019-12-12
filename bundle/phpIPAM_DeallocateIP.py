@@ -24,12 +24,13 @@ def handler(context, inputs):
         username = auth_credentials["privateKeyId"]
         password = auth_credentials["privateKey"]
         #cert = get_cert(inputs)
-
+        phpIPAMProperties = get_properties(inputs)
+        appId = phpIPAMProperties["phpIPAM.appId"]
         from phpipam_client import PhpIpamClient, GET, PATCH
         logging.info("Preparing phpIPAM connection")
         ipam = PhpIpamClient(
             url=inputs["endpoint"]["endpointProperties"]["hostName"],
-            app_id= "vra", # Need to pass from config...
+            app_id=appId,
             username=username,
             password=password,
             user_agent='vra-ipam', # custom user-agent header
@@ -79,3 +80,11 @@ def build_error_response(error_code, error_message):
             "errorMessage": error_message
         }
     }
+
+def get_properties(inputs):
+    properties_list = inputs["endpoint"]["endpointProperties"].get("properties", [])
+    properties_list = json.loads(properties_list)
+    properties = {}
+    for prop in properties_list:
+        properties[prop["prop_key"]] = prop["prop_value"]
+    return properties

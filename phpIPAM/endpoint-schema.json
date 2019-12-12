@@ -1,78 +1,107 @@
-{  
-   "layout":{  
-      "pages":[  
-         {  
-            "id":"phpIPAM",
-            "title":"phpIPAM endpoint",
-            "sections":[  
-               {  
-                  "id":"section_1",
-                  "fields":[  
-                     {  
-                        "id":"privateKeyId",
-                        "display":"textField"
-                     },
-                     {  
-                        "id":"privateKey",
-                        "display":"passwordField"
-                     },
-                     {  
-                        "id":"hostName",
-                        "display":"textField"
-                     },
-                     {  
-                        "id":"appId",
-                        "display":"textField"
-                     }
-                  ]
-               }
-            ]
-         }
-      ]
-   },
-   "schema":{  
-      "privateKeyId":{  
-         "type":{  
-            "dataType":"string"
-         },
-         "label":"Username",
-         "constraints":{  
-            "required":true
-         },
-         "default": "admin"
-      },
-      "privateKey":{  
-         "label":"Password",
-         "type":{  
-            "dataType":"secureString"
-         },
-         "constraints":{  
-            "required":true
-         },
-         "default": "b77iofI!#wVhe/IeG^yDO~MVO$w^T1aYeD2"
-      },
-      "hostName":{  
-         "type":{  
-            "dataType":"string"
-         },
-         "label":"Hostname",
-         "constraints":{  
-            "required":true
-         },
-         "default": "http://phpipam.definit.local"
-      },
-      "appId":{  
-         "type":{  
-            "dataType":"string"
-         },
-         "label":"App ID",
-         "constraints":{  
-            "required":true
-         },
-         "default": "vra"
-      }
-   },
-   "options":{  
-
-   }
+{
+    "layout": {
+        "pages": [
+            {
+                "id": "phpIPAM",
+                "title": "phpIPAM endpoint",
+                "sections": [
+                    {
+                        "id": "section_1",
+                        "fields": [
+                            {
+                                "id": "privateKeyId",
+                                "display": "textField"
+                            },
+                            {
+                                "id": "privateKey",
+                                "display": "passwordField"
+                            },
+                            {
+                                "id": "hostName",
+                                "display": "textField"
+                            },
+                            {
+                                "id": "properties",
+                                "display": "datagrid",
+                                "state": {
+                                    "visible": true,
+                                    "read-only": false,
+                                    "hidden-fields": []
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "schema": {
+        "privateKeyId": {
+            "type": {
+                "dataType": "string"
+            },
+            "label": "Username",
+            "constraints": {
+                "required": true
+            },
+            "default": "admin"
+        },
+        "privateKey": {
+            "label": "Password",
+            "type": {
+                "dataType": "secureString"
+            },
+            "constraints": {
+                "required": true
+            },
+            "default": "b77iofI!#wVhe/IeG^yDO~MVO$w^T1aYeD2"
+        },
+        "hostName": {
+            "type": {
+                "dataType": "string"
+            },
+            "label": "Hostname",
+            "constraints": {
+                "required": true
+            },
+            "default": "http://phpipam.definit.local"
+        },
+        "properties": {
+            "type": {
+                "dataType": "complex",
+                "isMultiple": true,
+                "fields": [
+                    {
+                        "label": "Key",
+                        "id": "prop_key",
+                        "type": {
+                            "dataType": "string"
+                        },
+                        "constraints": {}
+                    },
+                    {
+                        "label": "Value",
+                        "id": "prop_value",
+                        "type": {
+                            "dataType": "string"
+                        },
+                        "constraints": {}
+                    }
+                ]
+            },
+            "placeholder": "",
+            "default": [
+                {
+                    "prop_key": "phpIPAM.appId",
+                    "prop_value": "vra"
+                },
+                {
+                    "prop_key": "phpIPAM.sectionName",
+                    "prop_value": "lab"
+                }
+            ],
+            "constraints": {}
+        },
+        "options": {}
+    }
 }
