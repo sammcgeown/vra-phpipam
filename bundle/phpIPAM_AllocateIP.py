@@ -82,7 +82,7 @@ def allocate(resource, allocation, context, inputs, ipam):
                   "ipAllocationId": allocation["id"],
                   "ipRangeId": range_id,
                   "ipVersion": "IPv4",
-                  "ipAddresses": allocatedIp
+                  "ipAddresses": [allocatedIp]
               }
               return result
           else:
