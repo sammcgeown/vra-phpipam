@@ -36,17 +36,9 @@ def handler(context, inputs):
             user_agent='vra-ipam', # custom user-agent header
         )
 
-        # ipDeallocations = []
-        # try:
-        #     for ipDeallocation in inputs["ipDeallocations"]:
-        #         ipDeallocations.append(deallocateIp(ipDeallocation, ipam))
-        # except Exception as e:
-        #     logging.error(f"Error during deallocation: {str(e)}")
-        #     return build_error_response("5000", str(e))
-        # assert len(ipDeallocations) > 0
-        # return {
-        #     "ipDeallocations": ipDeallocations
-        # }
+        for addressInfo in inputs["addressInfos"]:
+            updateIp(addressInfo, ipam)
+
     except Exception as e:
         logging.error(f"Unexpected error: {str(e)}")
         return build_error_response("5000", str(e))
@@ -56,10 +48,14 @@ def handler(context, inputs):
 
 
 
-def deallocateIp(ipDeallocation, ipam):
-    ipToDeallocate = ipDeallocation["ipAddress"]
-    logging.info(f"Removing IP allocation {str(ipToDeallocate)}")
-    ipam.delete('/adresses/'+ipToDeallocate+'/'+ipDeallocation["ipRangeId"])
+def updateIp(addressInfo, ipam):
+    logging.info(f"Updating IP allocation {str(addressInfo["address"])}")
+    addressObjects = ipam.get('/addresses/search/'+addressInfo["address"]+'/')
+    for addressObj in addressObjects:
+        ipam.patch('/addresses/'+address["id"]+'/', {
+                        "id": addressObj["id"],
+                        "mac": addressInfo["macAddress"]
+        })
     return
 
 
